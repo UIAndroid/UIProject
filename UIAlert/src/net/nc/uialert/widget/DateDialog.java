@@ -34,10 +34,8 @@ public class DateDialog {
 		this.mContext = context;
 	}
 	
-	@SuppressLint("InflateParams")
 	public DateDialog builder() {
-		LayoutInflater inflater = LayoutInflater.from(mContext);
-		View view = (View) inflater.inflate(R.layout.dialog_date, null);
+		View view = View.inflate(mContext, R.layout.dialog_date, null);
 		
 		dialog = new Dialog(mContext, R.style.AlertViewStyle);
 		dialog.setContentView(view);
