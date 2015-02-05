@@ -16,7 +16,7 @@ import android.widget.TextView;
 /**
  * 类名：DateDialog<br>
  * 类描述：日期选择弹出框<br>
- * 创建人：倪少强<br>
+ * 创建人：howtoplay<br>
  */
 public class DateDialog {
 
