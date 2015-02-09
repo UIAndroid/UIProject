@@ -5,8 +5,8 @@
 
 1、日期选择弹出框
 
-![github](https://github.com/UIAndroid/UIProject/tree/master/UIAlert/Images/DateDialog.png "github")
+![日期选择弹出框](https://github.com/UIAndroid/UIProject/tree/master/UIAlert/Images/DateDialog.png)
 
 2、短信验证弹出框
 
-![github](https://github.com/UIAndroid/UIProject/tree/master/UIAlert/Images/SMSDialog.png "github")
+![短信验证弹出框](https://github.com/UIAndroid/UIProject/tree/master/UIAlert/Images/SMSDialog.png)
