@@ -4,11 +4,9 @@ import net.nc.uialert.R;
 import net.nc.uialert.listener.OnDatePickListener;
 import net.simonvt.numberpicker.NumberPicker;
 import net.simonvt.numberpicker.NumberPicker.OnValueChangeListener;
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -23,6 +21,8 @@ public class DateDialog {
 	private Context mContext;
 	
 	private static Dialog dialog = null;
+	
+	private int themeColor;
 	
 	private TextView txtTitle, txtCancel, txtOK;
 	private NumberPicker npYear, npMonth, npDay;
@@ -117,6 +117,13 @@ public class DateDialog {
 		} else {
 			txtTitle.setText(title);
 		}
+		return this;
+	}
+	
+	public DateDialog setThemeColor(int color){
+		themeColor = mContext.getResources().getColor(color);
+		txtTitle.setTextColor(themeColor);
+		txtOK.setTextColor(themeColor);
 		return this;
 	}
 	

@@ -828,6 +828,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
         public static final int textColorSearchUrl=0x7f010068;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int textNumber=0x7f010079;
         /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -955,7 +963,7 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070009;
+        public static final int abc_search_url_text_holo=0x7f07000a;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
@@ -963,6 +971,7 @@ containing a value of this type.
         public static final int black_light=0x7f070005;
         public static final int green=0x7f070004;
         public static final int pressed=0x7f070008;
+        public static final int theme=0x7f070009;
         public static final int transparent=0x7f070003;
         public static final int white=0x7f070006;
     }
@@ -1212,11 +1221,12 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050026;
-        public static final int action_settings=0x7f050047;
+        public static final int action_settings=0x7f05004b;
         public static final int activity_chooser_view_content=0x7f050027;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
         public static final int btn_date=0x7f05003e;
+        public static final int btn_sms=0x7f05003f;
         public static final int checkbox=0x7f05002f;
         public static final int collapseActionView=0x7f05000d;
         public static final int default_activity_button=0x7f05002a;
@@ -1224,6 +1234,8 @@ containing a value of this type.
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
         public static final int edit_query=0x7f050032;
+        public static final int edt_code=0x7f050048;
+        public static final int edt_phone=0x7f050047;
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050028;
         public static final int expanded_menu=0x7f05002e;
@@ -1234,7 +1246,7 @@ containing a value of this type.
         public static final int image=0x7f050029;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f05002b;
-        public static final int llay_btn=0x7f050043;
+        public static final int llay_btn=0x7f050044;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
@@ -1243,10 +1255,10 @@ containing a value of this type.
         /**  Just adding these so I wont have to remove a lot of code from NumberPicker.java. 
          */
         public static final int np__increment=0x7f05001a;
-        public static final int np__numberpicker_input=0x7f050046;
-        public static final int np_day=0x7f050042;
-        public static final int np_month=0x7f050041;
-        public static final int np_year=0x7f050040;
+        public static final int np__numberpicker_input=0x7f05004a;
+        public static final int np_day=0x7f050043;
+        public static final int np_month=0x7f050042;
+        public static final int np_year=0x7f050041;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f050031;
@@ -1269,9 +1281,10 @@ containing a value of this type.
         public static final int tabMode=0x7f050002;
         public static final int title=0x7f05002d;
         public static final int top_action_bar=0x7f050022;
-        public static final int txt_cancel=0x7f050044;
-        public static final int txt_ok=0x7f050045;
-        public static final int txt_title=0x7f05003f;
+        public static final int txt_cancel=0x7f050045;
+        public static final int txt_get_code=0x7f050049;
+        public static final int txt_ok=0x7f050046;
+        public static final int txt_title=0x7f050040;
         public static final int up=0x7f050023;
         public static final int useLogo=0x7f050003;
         public static final int withText=0x7f05000c;
@@ -1328,10 +1341,11 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
         public static final int dialog_date=0x7f030019;
-        public static final int divide_line_bold=0x7f03001a;
-        public static final int divide_line_vertical_bold=0x7f03001b;
-        public static final int number_picker_with_selector_wheel=0x7f03001c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
+        public static final int dialog_sms=0x7f03001a;
+        public static final int divide_line_bold=0x7f03001b;
+        public static final int divide_line_vertical_bold=0x7f03001c;
+        public static final int number_picker_with_selector_wheel=0x7f03001d;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -3446,5 +3460,32 @@ containing a value of this type.
           @attr name net.nc.uialert:paddingStart
         */
         public static final int View_paddingStart = 1;
+        /** Attributes that can be used with a timerNumber.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #timerNumber_textNumber net.nc.uialert:textNumber}</code></td><td></td></tr>
+           </table>
+           @see #timerNumber_textNumber
+         */
+        public static final int[] timerNumber = {
+            0x7f010079
+        };
+        /**
+          <p>This symbol is the offset where the {@link net.nc.uialert.R.attr#textNumber}
+          attribute's value can be found in the {@link #timerNumber} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name net.nc.uialert:textNumber
+        */
+        public static final int timerNumber_textNumber = 0;
     };
 }

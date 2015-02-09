@@ -13,4 +13,13 @@
         android:layout_marginTop="18dp"
         android:text="日期选择框" />
 
+    <Button
+        android:id="@+id/btn_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="短信验证框" />
+
 </RelativeLayout>

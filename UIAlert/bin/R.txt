@@ -115,6 +115,7 @@ int attr textAppearanceSearchResultSubtitle 0x7f010067
 int attr textAppearanceSearchResultTitle 0x7f010066
 int attr textAppearanceSmallPopupMenu 0x7f010015
 int attr textColorSearchUrl 0x7f010068
+int attr textNumber 0x7f010079
 int attr title 0x7f010025
 int attr titleTextStyle 0x7f01002a
 int attr virtualButtonPressedDrawable 0x7f010078
@@ -131,7 +132,7 @@ int bool abc_config_actionMenuItemAllCaps 0x7f060005
 int bool abc_config_allowActionMenuItemTextWithIcon 0x7f060004
 int bool abc_config_showMenuShortcutsWhenKeyboardPresent 0x7f060003
 int bool abc_split_action_bar_is_narrow 0x7f060002
-int color abc_search_url_text_holo 0x7f070009
+int color abc_search_url_text_holo 0x7f07000a
 int color abc_search_url_text_normal 0x7f070000
 int color abc_search_url_text_pressed 0x7f070002
 int color abc_search_url_text_selected 0x7f070001
@@ -139,6 +140,7 @@ int color black 0x7f070007
 int color black_light 0x7f070005
 int color green 0x7f070004
 int color pressed 0x7f070008
+int color theme 0x7f070009
 int color transparent 0x7f070003
 int color white 0x7f070006
 int dimen abc_action_bar_default_height 0x7f080002
@@ -281,11 +283,12 @@ int id action_context_bar 0x7f05001f
 int id action_menu_divider 0x7f050016
 int id action_menu_presenter 0x7f050017
 int id action_mode_close_button 0x7f050026
-int id action_settings 0x7f050047
+int id action_settings 0x7f05004b
 int id activity_chooser_view_content 0x7f050027
 int id always 0x7f05000b
 int id beginning 0x7f050011
 int id btn_date 0x7f05003e
+int id btn_sms 0x7f05003f
 int id checkbox 0x7f05002f
 int id collapseActionView 0x7f05000d
 int id default_activity_button 0x7f05002a
@@ -293,6 +296,8 @@ int id dialog 0x7f05000e
 int id disableHome 0x7f050008
 int id dropdown 0x7f05000f
 int id edit_query 0x7f050032
+int id edt_code 0x7f050048
+int id edt_phone 0x7f050047
 int id end 0x7f050013
 int id expand_activities_button 0x7f050028
 int id expanded_menu 0x7f05002e
@@ -303,17 +308,17 @@ int id ifRoom 0x7f05000a
 int id image 0x7f050029
 int id listMode 0x7f050001
 int id list_item 0x7f05002b
-int id llay_btn 0x7f050043
+int id llay_btn 0x7f050044
 int id middle 0x7f050012
 int id never 0x7f050009
 int id none 0x7f050010
 int id normal 0x7f050000
 int id np__decrement 0x7f05001b
 int id np__increment 0x7f05001a
-int id np__numberpicker_input 0x7f050046
-int id np_day 0x7f050042
-int id np_month 0x7f050041
-int id np_year 0x7f050040
+int id np__numberpicker_input 0x7f05004a
+int id np_day 0x7f050043
+int id np_month 0x7f050042
+int id np_year 0x7f050041
 int id progress_circular 0x7f050018
 int id progress_horizontal 0x7f050019
 int id radio 0x7f050031
@@ -336,9 +341,10 @@ int id submit_area 0x7f05003b
 int id tabMode 0x7f050002
 int id title 0x7f05002d
 int id top_action_bar 0x7f050022
-int id txt_cancel 0x7f050044
-int id txt_ok 0x7f050045
-int id txt_title 0x7f05003f
+int id txt_cancel 0x7f050045
+int id txt_get_code 0x7f050049
+int id txt_ok 0x7f050046
+int id txt_title 0x7f050040
 int id up 0x7f050023
 int id useLogo 0x7f050003
 int id withText 0x7f05000c
@@ -369,10 +375,11 @@ int layout abc_search_view 0x7f030016
 int layout abc_simple_decor 0x7f030017
 int layout activity_main 0x7f030018
 int layout dialog_date 0x7f030019
-int layout divide_line_bold 0x7f03001a
-int layout divide_line_vertical_bold 0x7f03001b
-int layout number_picker_with_selector_wheel 0x7f03001c
-int layout support_simple_spinner_dropdown_item 0x7f03001d
+int layout dialog_sms 0x7f03001a
+int layout divide_line_bold 0x7f03001b
+int layout divide_line_vertical_bold 0x7f03001c
+int layout number_picker_with_selector_wheel 0x7f03001d
+int layout support_simple_spinner_dropdown_item 0x7f03001e
 int menu main 0x7f0c0000
 int string abc_action_bar_home_description 0x7f0a0001
 int string abc_action_bar_up_description 0x7f0a0002
@@ -659,3 +666,5 @@ int[] styleable View { 0x010100da, 0x7f010038, 0x7f010039 }
 int styleable View_android_focusable 0
 int styleable View_paddingEnd 2
 int styleable View_paddingStart 1
+int[] styleable timerNumber { 0x7f010079 }
+int styleable timerNumber_textNumber 0

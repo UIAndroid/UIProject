@@ -6,5 +6,6 @@
     <color name="black">#ff000000</color>
     <color name="green">#7CBE52</color>
     <color name="pressed">#e3e3e3</color>
+    <color name="theme">#7CBE52</color>
     
 </resources>
