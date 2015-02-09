@@ -31,6 +31,7 @@ public class SMSDialog {
 	
 	private TimerTextView txtGetCode;
 	private TextView txtTitle, txtCancel, txtOK;
+	private View divide;
 	private EditText edtPhone, edtCode;
 	
 	public SMSDialog(Context context) {
@@ -44,6 +45,7 @@ public class SMSDialog {
 		dialog.setContentView(view);
 		
 		txtTitle = (TextView) view.findViewById(R.id.txt_title);
+		divide = (View) view.findViewById(R.id.include_title_divide);
 		txtCancel = (TextView) view.findViewById(R.id.txt_cancel);
 		txtOK = (TextView) view.findViewById(R.id.txt_ok);
 		
@@ -148,8 +150,10 @@ public class SMSDialog {
 	private void setLayout() {
 		if (!titleState) {
 			txtTitle.setVisibility(View.GONE);
+			divide.setVisibility(View.GONE);
 		} else {
 			txtTitle.setVisibility(View.VISIBLE);
+			divide.setVisibility(View.VISIBLE);
 		}
 		
 		if(!cancelState) {

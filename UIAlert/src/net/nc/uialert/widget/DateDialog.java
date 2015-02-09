@@ -25,6 +25,7 @@ public class DateDialog {
 	private int themeColor;
 	
 	private TextView txtTitle, txtCancel, txtOK;
+	private View divide;
 	private NumberPicker npYear, npMonth, npDay;
 	
 	private boolean titleState = false;
@@ -41,6 +42,7 @@ public class DateDialog {
 		dialog.setContentView(view);
 		
 		txtTitle = (TextView) view.findViewById(R.id.txt_title);
+		divide = (View) view.findViewById(R.id.include_title_divide);
 		txtCancel = (TextView) view.findViewById(R.id.txt_cancel);
 		txtOK = (TextView) view.findViewById(R.id.txt_ok);
 		
@@ -211,8 +213,10 @@ public class DateDialog {
 	private void setLayout() {
 		if (!titleState) {
 			txtTitle.setVisibility(View.GONE);
+			divide.setVisibility(View.GONE);
 		} else {
 			txtTitle.setVisibility(View.VISIBLE);
+			divide.setVisibility(View.VISIBLE);
 		}
 		
 		if(!cancelState) {

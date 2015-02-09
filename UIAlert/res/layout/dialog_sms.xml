@@ -15,7 +15,9 @@
         android:textColor="@color/black" >
     </TextView>
     
-    <include layout="@layout/divide_line_bold" />
+    <include 
+        android:id="@+id/include_title_divide"
+        layout="@layout/divide_line_bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
