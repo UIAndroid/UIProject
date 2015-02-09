@@ -4,7 +4,7 @@
 仿IOS弹出框,目前包含
 ###日期选择弹出框  
 调用方法：  
-·DateDialog dateDialog = new DateDialog(mContext).builder();
+     			DateDialog dateDialog = new DateDialog(mContext).builder();
 //			dateDialog.setTitle("日期选择");
 			dateDialog.setCanceledOnTouchOutside(true);
 			dateDialog.setPositiveButton(null, new OnDatePickListener(){
