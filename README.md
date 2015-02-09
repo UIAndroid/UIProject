@@ -3,6 +3,8 @@
 ## UIAlert
 仿IOS弹出框,目前包含
 ###日期选择弹出框  
+截图：  
+![日期选择弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/DateDialog.png)  
 调用方法：  
 
 	DateDialog dateDialog = new DateDialog(mContext).builder();
@@ -19,6 +21,8 @@
 	dateDialog.setDate(2000, 2, 31);
 	dateDialog.show();·
 ###短信验证弹出框  
+截图：  
+![短信验证弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/SMSDialog.png)  
 调用方法：  
 
 	new SMSDialog(mContext).builder().setCanceledOnTouchOutside(true)
