@@ -4,7 +4,7 @@
 仿IOS弹出框,目前包含
 ###日期选择弹出框
 
-![日期选择弹出框](https://github.com/UIAndroid/UIProject/tree/master/UIAlert/Images/DateDialog.png)
+![日期选择弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/DateDialog.png)
 ###短信验证弹出框
 
-![短信验证弹出框](https://github.com/UIAndroid/UIProject/tree/master/UIAlert/Images/SMSDialog.png)
+![短信验证弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/SMSDialog.png)
