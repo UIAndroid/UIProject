@@ -29,6 +29,15 @@ public class ValidateUtils {
 			return false;
 		}
 	}
+	
+	public static boolean isEmail(String email) {
+		if (email.length() < 6) {
+			return false;
+		}
+		return matches(
+				"^([a-z0-9A-Z]+[-|\\.|_]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",
+				email);
+	}
 
 	/**
 	 * 匹配正则

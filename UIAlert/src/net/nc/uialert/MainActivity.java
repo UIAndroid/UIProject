@@ -1,22 +1,27 @@
 package net.nc.uialert;
 
 import net.nc.uialert.listener.OnDatePickListener;
+import net.nc.uialert.listener.OnEditListener;
 import net.nc.uialert.listener.OnSMSIdentifyListener;
+import net.nc.uialert.utils.ValidateUtils;
 import net.nc.uialert.widget.DateDialog;
+import net.nc.uialert.widget.EditDialog;
 import net.nc.uialert.widget.SMSDialog;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener {
 	
 	private Context mContext;
 	private Button btnDate;
 	private Button btnSMS;
+	private Button btnEdit;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,9 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 		
 		btnSMS = (Button) findViewById(R.id.btn_sms);
 		btnSMS.setOnClickListener(this);
+		
+		btnEdit = (Button) findViewById(R.id.btn_edit);
+		btnEdit.setOnClickListener(this);
 	}
 
 	@Override
@@ -61,6 +69,27 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 
 						}
 					}).show();
+			break;
+		case R.id.btn_edit:
+			EditDialog mEditDialog = new EditDialog(mContext).builder();
+			mEditDialog.setTitle("邮箱验证");
+			mEditDialog.setHint("请输入邮箱");
+			mEditDialog.setCanceledOnTouchOutside(true);
+			mEditDialog.setPositiveButton("去验证", new OnEditListener(){
+
+				@Override
+				public void onEdit(String content) {
+					if(TextUtils.isEmpty(content)){
+						Toast.makeText(mContext, "您还未输入内容", Toast.LENGTH_SHORT).show();
+					} else if(!ValidateUtils.isEmail(content)) {
+						Toast.makeText(mContext, "请输入正确的邮箱号", Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(mContext, content, Toast.LENGTH_SHORT).show();
+					}
+				}
+				
+			});
+			mEditDialog.show();
 			break;
 
 		default:
