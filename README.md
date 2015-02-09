@@ -19,4 +19,13 @@
 	dateDialog.setDate(2000, 2, 31);
 	dateDialog.show();·
 ###短信验证弹出框  
+调用方法：  
+
+	new SMSDialog(mContext).builder().setCanceledOnTouchOutside(true)
+		.setPositiveButton(null, new OnSMSIdentifyListener() {
+			@Override
+			public void onSMSIdentify(String phone, String code) {
+				// TODO Auto-generated method stub
+			}
+		}).show();
 ![短信验证弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/SMSDialog.png)
