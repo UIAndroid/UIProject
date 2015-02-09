@@ -19,7 +19,7 @@
 		
 	});
 	dateDialog.setDate(2000, 2, 31);
-	dateDialog.show();·
+	dateDialog.show();  
 ###短信验证弹出框  
 截图：  
 ![短信验证弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/SMSDialog.png)  
@@ -31,4 +31,25 @@
 			public void onSMSIdentify(String phone, String code) {
 				// TODO Auto-generated method stub
 			}
-		}).show();
+		}).show();  
+###输入框弹出框  
+截图：  
+![输入框弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/EditDialog.png)  
+调用方法：  
+	EditDialog mEditDialog = new EditDialog(mContext).builder();
+	mEditDialog.setTitle("邮箱验证");
+	mEditDialog.setHint("请输入邮箱");
+	mEditDialog.setCanceledOnTouchOutside(true);
+	mEditDialog.setPositiveButton("去验证", new OnEditListener(){
+		@Override
+		public void onEdit(String content) {
+			if(TextUtils.isEmpty(content)){
+				Toast.makeText(mContext, "您还未输入内容", Toast.LENGTH_SHORT).show();
+			} else if(!ValidateUtils.isEmail(content)) {
+				Toast.makeText(mContext, "请输入正确的邮箱号", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(mContext, content, Toast.LENGTH_SHORT).show();
+			}
+		}
+	});
+	mEditDialog.show();  
