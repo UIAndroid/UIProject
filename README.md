@@ -35,7 +35,8 @@
 ###输入框弹出框  
 截图：  
 ![输入框弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/EditDialog.png)  
-调用方法：  
+调用方法： 
+
 	EditDialog mEditDialog = new EditDialog(mContext).builder();
 	mEditDialog.setTitle("邮箱验证");
 	mEditDialog.setHint("请输入邮箱");
