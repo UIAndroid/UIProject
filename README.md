@@ -28,4 +28,3 @@
 				// TODO Auto-generated method stub
 			}
 		}).show();
-![短信验证弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/SMSDialog.png)
