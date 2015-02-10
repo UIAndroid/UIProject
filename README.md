@@ -54,3 +54,42 @@
 		}
 	});
 	mEditDialog.show();  
+###长进度条弹出框  
+截图：  
+![输入框弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/ProgressDialog_run.png)
+![输入框弹出框](https://raw.githubusercontent.com/UIAndroid/UIProject/master/UIAlert/Images/ProgressDialog_stop.png)  
+调用方法（这里只是模拟下载进度框，具体用途可根据自己需要）：  
+  
+	mUpdateThread = new Thread(mUpdateRunnable);//定时线程
+	mUpdateThread.start();
+	mProgressDialog = new ProgressDialog(mContext).builder();
+	mProgressDialog.setNegativeButton(null, new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			if(mUpdateThread.isAlive() || !mUpdateThread.isInterrupted()){
+				mUpdateThread.interrupt();
+				mUpdateThread = null;
+				refresh = false; //点取消结束线程
+			}
+		}
+				
+	});
+	mProgressDialog.setPositiveButton("暂停", new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			if(mProgressDialog.getPositiveButtonName().equals("暂停")){
+				mProgressDialog.setPositiveButtonName("继续下载");
+				progress = mProgressDialog.getProgress();
+				refresh = false; //暂停下载
+			} else {
+				mProgressDialog.setPositiveButtonName("暂停");
+				refresh = true;
+				mUpdateThread = new Thread(mUpdateRunnable);
+				mUpdateThread.start(); //继续下载
+			}
+		}
+				
+	});
+	mProgressDialog.show();
