@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="net.nc.uialert.MainActivity" >
 
     <Button
@@ -10,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
         android:text="日期选择框" />
 
     <Button
@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_date"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
         android:text="短信验证框" />
 
     <Button
@@ -28,7 +27,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_sms"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
         android:text="编辑框弹出框" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btn_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_edit"
+        android:layout_centerHorizontal="true"
+        android:text="进度条弹出框" />
+
+</LinearLayout>

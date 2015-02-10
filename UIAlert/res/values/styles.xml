@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 
         Base application theme, dependent on API level. This theme is replaced
@@ -34,6 +34,16 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/shape_dialog</item>
         <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    
+    <style name="NumberProgressBarStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:padding">12dp</item>
+        <item name="max">100</item>
+        <item name="progress_text_size">10sp</item>
+        <item name="progress_reached_bar_height">1.5dp</item>
+        <item name="progress_unreached_bar_height">0.75dp</item>
     </style>
 
 </resources>

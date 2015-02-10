@@ -1,23 +1,21 @@
 package net.nc.uialert.widget;
 
 import net.nc.uialert.R;
-import net.nc.uialert.listener.OnEditListener;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * 类名：EditDialog<br>
- * 类描述：输入框弹出框<br>
+ * 类名：ProgressDialog<br>
+ * 类描述：进度条弹出框<br>
  * 创建人：howtoplay<br>
  */
-public class EditDialog {
-	
-	private Context mContext;
+public class ProgressDialog {
+
+private Context mContext;
 	
 	private static Dialog dialog = null;
 	
@@ -27,15 +25,15 @@ public class EditDialog {
 	private boolean cancelState = false;
 	
 	private TextView txtTitle, txtCancel, txtOK;
+	private NumberProgressBar npbProgress;
 	private View divide;
-	private EditText edtContent;
 	
-	public EditDialog(Context context) {
+	public ProgressDialog(Context context) {
 		this.mContext = context;
 	}
 	
-	public EditDialog builder(){
-		View view = View.inflate(mContext, R.layout.dialog_edit, null);
+	public ProgressDialog builder(){
+		View view = View.inflate(mContext, R.layout.dialog_progress_normal, null);
 		
 		dialog = new Dialog(mContext, R.style.AlertViewStyle);
 		dialog.setContentView(view);
@@ -45,12 +43,12 @@ public class EditDialog {
 		txtCancel = (TextView) view.findViewById(R.id.txt_cancel);
 		txtOK = (TextView) view.findViewById(R.id.txt_ok);
 		
-		edtContent = (EditText) view.findViewById(R.id.edt_content);
+		npbProgress = (NumberProgressBar) view.findViewById(R.id.npb_progress);
 		
 		return this;
 	}
 	
-	public EditDialog setTitle(String title) {
+	public ProgressDialog setTitle(String title) {
 		titleState = true;
 		if ("".equals(title)) {
 			txtTitle.setText("标题");
@@ -60,28 +58,32 @@ public class EditDialog {
 		return this;
 	}
 	
-	public EditDialog setThemeColor(int color){
+	public ProgressDialog setProgress(int progress){
+		npbProgress.setProgress(progress);
+		return this;
+	}
+	
+	public int getProgress(){
+		return npbProgress.getProgress();
+	}
+	
+	public ProgressDialog setThemeColor(int color){
 		themeColor = mContext.getResources().getColor(color);
 		txtOK.setTextColor(themeColor);
 		return this;
 	}
 	
-	public EditDialog setCancelable(boolean cancel) {
+	public ProgressDialog setCancelable(boolean cancel) {
 		dialog.setCancelable(cancel);
 		return this;
 	}
 	
-	public EditDialog setCanceledOnTouchOutside(boolean cancel) {
+	public ProgressDialog setCanceledOnTouchOutside(boolean cancel) {
 		dialog.setCanceledOnTouchOutside(cancel);
 		return this;
 	}
 	
-	public EditDialog setHint(String hint){
-		edtContent.setHint(hint);
-		return this;
-	}
-	
-	public EditDialog setNegativeButton(String text,
+	public ProgressDialog setNegativeButton(String text,
 			final OnClickListener... listener) {
 		cancelState = true;
 		if (TextUtils.isEmpty(text)) {
@@ -103,7 +105,7 @@ public class EditDialog {
 		return this;
 	}
 	
-	public EditDialog setPositiveButton(String text, final OnEditListener onEditListener) {
+	public ProgressDialog setPositiveButton(String text, final OnClickListener... onClickListener) {
 		if (TextUtils.isEmpty(text)) {
 			txtOK.setText("确定");
 		} else {
@@ -113,11 +115,22 @@ public class EditDialog {
 			
 			@Override
 			public void onClick(View v) {
-				onEditListener.onEdit(edtContent.getText().toString());
+				if(onClickListener.length > 0){
+					onClickListener[0].onClick(v);
+				}
 			}
 			
 		});
 		return this;
+	}
+	
+	public ProgressDialog setPositiveButtonName(String text){
+		txtOK.setText(text);
+		return this;
+	}
+	
+	public String getPositiveButtonName(){
+		return txtOK.getText().toString();
 	}
 	
 	private void setLayout() {
@@ -138,5 +151,5 @@ public class EditDialog {
 		setLayout();
 		dialog.show();
 	}
-
+	
 }

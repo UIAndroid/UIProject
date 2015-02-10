@@ -6,10 +6,14 @@ import net.nc.uialert.listener.OnSMSIdentifyListener;
 import net.nc.uialert.utils.ValidateUtils;
 import net.nc.uialert.widget.DateDialog;
 import net.nc.uialert.widget.EditDialog;
+import net.nc.uialert.widget.ProgressDialog;
 import net.nc.uialert.widget.SMSDialog;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +26,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button btnDate;
 	private Button btnSMS;
 	private Button btnEdit;
+	private Button btnProgress;
+	
+	private ProgressDialog mProgressDialog;
+	private UpdateHandler mUpdateHandler;
+	private Message msg;
+	private Thread mUpdateThread;
+	private UpdateRunnable mUpdateRunnable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +49,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		btnEdit = (Button) findViewById(R.id.btn_edit);
 		btnEdit.setOnClickListener(this);
+		
+		btnProgress = (Button) findViewById(R.id.btn_progress);
+		btnProgress.setOnClickListener(this);
+		
+		mUpdateHandler = new UpdateHandler();
+		mUpdateRunnable = new UpdateRunnable();
+		
 	}
 
 	@Override
@@ -91,10 +109,86 @@ public class MainActivity extends Activity implements OnClickListener {
 			});
 			mEditDialog.show();
 			break;
+		case R.id.btn_progress:
+			mUpdateThread = new Thread(mUpdateRunnable);
+			mUpdateThread.start();
+			mProgressDialog = new ProgressDialog(mContext).builder();
+			mProgressDialog.setNegativeButton(null, new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					if(mUpdateThread.isAlive() || !mUpdateThread.isInterrupted()){
+						mUpdateThread.interrupt();
+						mUpdateThread = null;
+						refresh = false;
+					}
+				}
+				
+			});
+			mProgressDialog.setPositiveButton("暂停", new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					if(mProgressDialog.getPositiveButtonName().equals("暂停")){
+						mProgressDialog.setPositiveButtonName("继续下载");
+						progress = mProgressDialog.getProgress();
+						refresh = false;
+					} else {
+						mProgressDialog.setPositiveButtonName("暂停");
+						refresh = true;
+						mUpdateThread = new Thread(mUpdateRunnable);
+						mUpdateThread.start();
+					}
+				}
+				
+			});
+			mProgressDialog.show();
+			break;
 
 		default:
 			break;
 		}
 	}
+	
+	private boolean refresh = true;
+	private class UpdateRunnable implements Runnable {
+
+		@Override
+		public void run() {
+			while (progress <= 100 && refresh) {
+				msg = new Message();
+				msg.what = 1;
+				msg.arg1 = progress;
+				mUpdateHandler.sendMessage(msg);
+				try {
+					Thread.sleep(1000);// 线程暂停1秒，单位毫秒
+					progress+=5;
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+	@SuppressLint("HandlerLeak")
+	private class UpdateHandler extends Handler {
+		
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 1:
+				mProgressDialog.setProgress(msg.arg1);
+				break;
+
+			default:
+				break;
+			}
+		}
+		
+	}
+	
+	private int progress = 0;
 
 }

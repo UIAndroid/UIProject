@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
-
+    android:layout_height="match_parent"
+    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/net.nc.uialert">
+    
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="match_parent"
@@ -18,20 +18,20 @@
     <include 
         android:id="@+id/include_title_divide"
         layout="@layout/divide_line_bold" />
-
-    <EditText
-        android:id="@+id/edt_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@null"
-        android:hint="请输入内容"
-        android:padding="12dp"
-        android:textSize="@dimen/text_size" >
-    </EditText>
-
+    
+    <net.nc.uialert.widget.NumberProgressBar
+        xmlns:progress="http://schemas.android.com/apk/res/net.nc.uialert"
+        android:id="@+id/npb_progress"
+        style="@style/NumberProgressBarStyle"
+        app:progress_text_color="@color/theme"
+        app:progress_unreached_color="@color/theme"
+        app:progress_reached_color="@color/theme"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        progress:progress="0" />
+    
     <include layout="@layout/divide_line_bold" />
-
+    
     <include layout="@layout/layout_bottom" />
 
 </LinearLayout>
