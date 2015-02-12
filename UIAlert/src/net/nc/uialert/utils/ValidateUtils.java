@@ -18,16 +18,7 @@ public class ValidateUtils {
 	 * boolean
 	 */
 	public static boolean isMobile(String phone) {
-		if (phone.length() != 11) {
-			return false;
-		}
-		if (phone.startsWith("1") && (!phone.startsWith("10"))
-				&& (!phone.startsWith("11")) && (!phone.startsWith("12"))
-				&& (!phone.startsWith("16")) && (!phone.startsWith("19"))) {
-			return matches("^[0-9]\\d*$", phone);
-		} else {
-			return false;
-		}
+		return matches("[1][34578]\\d{9}", phone);
 	}
 	
 	public static boolean isEmail(String email) {
