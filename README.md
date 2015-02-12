@@ -4,7 +4,7 @@
 仿IOS弹出框,目前包含
 ###提醒框
 截图：
-![](https://github.com/UIAndroid/UIProject/blob/master/UIAlert/Images/UIAlertDialog.jpg)
+![](https://github.com/UIAndroid/UIProject/blob/master/UIAlert/Images/UIAlertDialog.jpg)/<br>
 调用方法:
 
 
