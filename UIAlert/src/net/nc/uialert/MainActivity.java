@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.btn_alert:
 			UIAlertDialog dialog = new UIAlertDialog.Builder(MainActivity.this)
 					.setTitle("提醒")
-					// .setMessage("确定要关闭吗!")
+					.setMessage("确定要关闭吗!")
 					.setPositiveButton(
 							"确定",
 							new android.content.DialogInterface.OnClickListener() {
