@@ -251,33 +251,47 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int selector_alert_item=0x7f02000c;
         public static final int selector_bottom=0x7f02000d;
         public static final int selector_bottom_left=0x7f02000e;
-        public static final int selector_bottom_right=0x7f02000f;
-        public static final int shape_dialog=0x7f020010;
+        public static final int selector_bottom_middle=0x7f02000f;
+        public static final int selector_bottom_right=0x7f020010;
+        public static final int shape_dialog=0x7f020011;
     }
     public static final class id {
-        public static final int btn_date=0x7f050004;
-        public static final int btn_edit=0x7f050006;
-        public static final int btn_progress=0x7f050007;
-        public static final int btn_sms=0x7f050005;
-        public static final int edt_code=0x7f050010;
-        public static final int edt_content=0x7f05000d;
-        public static final int edt_phone=0x7f05000f;
-        public static final int include_title_divide=0x7f050009;
+        public static final int btn_alert=0x7f050004;
+        public static final int btn_date=0x7f050005;
+        public static final int btn_edit=0x7f050007;
+        public static final int btn_negative=0x7f05001d;
+        public static final int btn_neutral=0x7f05001f;
+        public static final int btn_positive=0x7f050021;
+        public static final int btn_progress=0x7f050008;
+        public static final int btn_sms=0x7f050006;
+        public static final int button_panel=0x7f05001c;
+        public static final int content_panel=0x7f050019;
+        public static final int edt_code=0x7f050011;
+        public static final int edt_content=0x7f05000e;
+        public static final int edt_phone=0x7f050010;
+        public static final int include_title_divide=0x7f05000a;
         public static final int invisible=0x7f050003;
-        public static final int llay_btn=0x7f050012;
+        public static final int llay_btn=0x7f050013;
+        public static final int message=0x7f05001b;
+        public static final int message_panel=0x7f05001a;
         public static final int np__decrement=0x7f050001;
         /**  Just adding these so I wont have to remove a lot of code from NumberPicker.java. 
          */
         public static final int np__increment=0x7f050000;
-        public static final int np__numberpicker_input=0x7f050015;
-        public static final int np_day=0x7f05000c;
-        public static final int np_month=0x7f05000b;
-        public static final int np_year=0x7f05000a;
-        public static final int npb_progress=0x7f05000e;
-        public static final int txt_cancel=0x7f050013;
-        public static final int txt_get_code=0x7f050011;
-        public static final int txt_ok=0x7f050014;
-        public static final int txt_title=0x7f050008;
+        public static final int np__numberpicker_input=0x7f050022;
+        public static final int np_day=0x7f05000d;
+        public static final int np_month=0x7f05000c;
+        public static final int np_year=0x7f05000b;
+        public static final int npb_progress=0x7f05000f;
+        public static final int parent_panel=0x7f050016;
+        public static final int title=0x7f050018;
+        public static final int title_panel=0x7f050017;
+        public static final int txt_cancel=0x7f050014;
+        public static final int txt_get_code=0x7f050012;
+        public static final int txt_ok=0x7f050015;
+        public static final int txt_title=0x7f050009;
+        public static final int view_divider_left=0x7f05001e;
+        public static final int view_divider_right=0x7f050020;
         public static final int visible=0x7f050002;
     }
     public static final class layout {
@@ -289,7 +303,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int divide_line_bold=0x7f030005;
         public static final int divide_line_vertical_bold=0x7f030006;
         public static final int layout_bottom=0x7f030007;
-        public static final int number_picker_with_selector_wheel=0x7f030008;
+        public static final int layout_uidialog=0x7f030008;
+        public static final int number_picker_with_selector_wheel=0x7f030009;
     }
     public static final class string {
         public static final int action_settings=0x7f080002;

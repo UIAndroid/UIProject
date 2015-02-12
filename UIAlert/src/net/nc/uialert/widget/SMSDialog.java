@@ -53,6 +53,13 @@ public class SMSDialog {
 		edtCode = (EditText) view.findViewById(R.id.edt_code);
 		
 		txtGetCode = (TimerTextView) view.findViewById(R.id.txt_get_code);
+		txtGetCode.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				txtGetCode.start();
+			}
+		});
 		
 		edtPhone.addTextChangedListener(new TextWatcher() {
 
@@ -114,7 +121,7 @@ public class SMSDialog {
 				if(listener.length > 0){
 					listener[0].onClick(v);
 				}
-				dialog.dismiss();
+				cancel();
 			}
 			
 		});
@@ -138,6 +145,7 @@ public class SMSDialog {
 				} else if(TextUtils.isEmpty(code)){
 					Toast.makeText(mContext, "请输入验证码", Toast.LENGTH_SHORT).show();
 				} else {
+					txtGetCode.stop();
 					onSMSIdentifyListener.onSMSIdentify(edtPhone.getText().toString(),
 							edtCode.getText().toString());
 				}
@@ -159,6 +167,11 @@ public class SMSDialog {
 		if(!cancelState) {
 			setNegativeButton(null);
 		}
+	}
+	
+	private void cancel(){
+		txtGetCode.stop();
+		dialog.dismiss();
 	}
 	
 	public void show() {
