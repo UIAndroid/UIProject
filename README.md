@@ -6,27 +6,29 @@
 截图：
 ![](https://github.com/UIAndroid/UIProject/blob/master/UIAlert/Images/UIAlertDialog.jpg)
 调用方法:
-UIAlertDialog dialog = new UIAlertDialog.Builder(MainActivity.this)
-.setTitle("提醒")
-.setMessage("确定要关闭吗!")
-.setPositiveButton("确定",
-	new android.content.DialogInterface.OnClickListener() {
 
-		@Override
-		public void onClick(DialogInterface dialog,int which) {
-			Toast.makeText(getBaseContext(), "确定", Toast.LENGTH_SHORT).show();
-		}
-	})
-.setNegativeButton("取消",
-	new android.content.DialogInterface.OnClickListener() {
 
-		@Override
-		public void onClick(DialogInterface dialog,int which) {
-			Toast.makeText(getBaseContext(), "取消",Toast.LENGTH_SHORT).show();
-		}
-	}).create();
-dialog.setCanceledOnTouchOutside(false);
-dialog.show();
+	UIAlertDialog dialog = new UIAlertDialog.Builder(MainActivity.this)
+	.setTitle("提醒")
+	.setMessage("确定要关闭吗!")
+	.setPositiveButton("确定",
+		new android.content.DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog,int which) {
+				Toast.makeText(getBaseContext(), "确定", Toast.LENGTH_SHORT).show();
+			}
+		})
+	.setNegativeButton("取消",
+		new android.content.DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog,int which) {
+				Toast.makeText(getBaseContext(), "取消",Toast.LENGTH_SHORT).show();
+			}
+		}).create();
+	dialog.setCanceledOnTouchOutside(false);
+	dialog.show();
 			
 ###日期选择弹出框  
 截图：  
