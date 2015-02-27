@@ -8,25 +8,21 @@
 调用方法:
 
 
-	UIAlertDialog dialog = new UIAlertDialog.Builder(MainActivity.this)
-	.setTitle("提醒")
-	.setMessage("确定要关闭吗!")
-	.setPositiveButton("确定",
-		new android.content.DialogInterface.OnClickListener() {
-
+	UIAlertDialog dialog = new UIAlertDialog(MainActivity.this);
+	dialog.setTitle("提醒");
+	dialog.setMessage("确定要删除吗?");
+	dialog.setNegativeButton("取消",
+		new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog,int which) {
-				Toast.makeText(getBaseContext(), "确定", Toast.LENGTH_SHORT).show();
+			public void onClick(DialogInterface dialog, int which) {
 			}
-		})
-	.setNegativeButton("取消",
-		new android.content.DialogInterface.OnClickListener() {
-
+		}, getResources().getColor(R.color.theme));
+	dialog.setPositiveButton("确定",
+		new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog,int which) {
-				Toast.makeText(getBaseContext(), "取消",Toast.LENGTH_SHORT).show();
+			public void onClick(DialogInterface dialog, int which) {
 			}
-		}).create();
+		});
 	dialog.setCanceledOnTouchOutside(false);
 	dialog.show();
 			
