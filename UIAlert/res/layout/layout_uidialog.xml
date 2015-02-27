@@ -50,6 +50,16 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
         </ScrollView>
+
+        <ListView
+            android:id="@+id/single_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="?android:attr/listDivider"
+            android:dividerHeight="1dp"
+            android:fadeScrollbars="@null"
+            android:fadingEdge="none"
+            android:scrollbars="none" />
     </LinearLayout>
 
     <LinearLayout
@@ -66,7 +76,7 @@
             android:layout_height="fill_parent"
             android:orientation="horizontal" >
 
-            <TextView
+            <Button
                 android:id="@+id/btn_negative"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
@@ -75,39 +85,37 @@
                 android:gravity="center"
                 android:maxLines="2"
                 android:singleLine="true"
-                android:textColor="@color/black_light"
-                android:textSize="@dimen/text_size" />
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
 
             <include
                 android:id="@+id/view_divider_left"
                 layout="@layout/divide_line_vertical_bold" />
 
-            <TextView
+            <Button
                 android:id="@+id/btn_neutral"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@drawable/selector_bottom_middle"
-                android:gravity="center"
                 android:maxLines="2"
-                android:textColor="@color/black_light"
-                android:textSize="@dimen/text_size"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
                 android:visibility="visible" />
 
             <include
                 android:id="@+id/view_divider_right"
                 layout="@layout/divide_line_vertical_bold" />
 
-            <TextView
+            <Button
                 android:id="@+id/btn_positive"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@drawable/selector_bottom_right"
-                android:gravity="center"
                 android:maxLines="2"
                 android:textColor="@color/theme"
-                android:textSize="@dimen/text_size" />
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 

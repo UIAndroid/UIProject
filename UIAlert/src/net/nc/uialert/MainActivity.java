@@ -36,6 +36,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Message msg;
 	private Thread mUpdateThread;
 	private UpdateRunnable mUpdateRunnable;
+	private String[] array = { "hehe", "haha" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,32 +69,45 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_alert:
-			UIAlertDialog dialog = new UIAlertDialog.Builder(MainActivity.this)
-					.setTitle("提醒")
-					.setMessage("确定要关闭吗!")
-					.setPositiveButton(
-							"确定",
-							new android.content.DialogInterface.OnClickListener() {
+			UIAlertDialog dialog = new UIAlertDialog(MainActivity.this);
+			dialog.setTitle("提醒");
+			dialog.setMessage("确定要删除吗?");
+//			dialog.setItems(array, new DialogInterface.OnClickListener() {
+//
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					Toast.makeText(getBaseContext(), "" + which,
+//							Toast.LENGTH_SHORT).show();
+//
+//				}
+//			});
+			dialog.setNegativeButton("取消",
+					new DialogInterface.OnClickListener() {
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									Toast.makeText(getBaseContext(), "确定",
-											Toast.LENGTH_SHORT).show();
-								}
-							})
-					.setNegativeButton(
-							"取消",
-							new android.content.DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
 
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									Toast.makeText(getBaseContext(), "取消",
-											Toast.LENGTH_SHORT).show();
-								}
-							}).create();
-			dialog.setCanceledOnTouchOutside(false);
+						}
+					}, getResources().getColor(R.color.theme));
+			dialog.setNeutralButton("待定",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+			dialog.setPositiveButton("确定",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+
+						}
+					});
 			dialog.show();
 			break;
 		case R.id.btn_date:

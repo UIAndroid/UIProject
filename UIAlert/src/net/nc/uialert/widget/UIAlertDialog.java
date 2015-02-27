@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package net.nc.uialert.widget;
 
 import net.nc.uialert.R;
@@ -5,454 +8,440 @@ import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class UIAlertDialog extends Dialog {
+/**
+ * @author chenjn
+ * @date 上午9:48:56
+ */
+public class UIAlertDialog {
 
-	public UIAlertDialog(Context context, int theme) {
-		super(context, theme);
-	}
+	private Context mContext;
+	private LinearLayout mTitlePanel;
+	private LinearLayout mContentPanel;
+	private LinearLayout mButtonPanel;
+	private ScrollView mMessagePanel;
+	private TextView mTitleText;
+	private TextView mMessageText;
+	private ListView mSingleSelectList;
+	private Button mNegativeBtn;
+	private Button mNeutralBtn;
+	private Button mPositiveBtn;
+	private View mDividerLeft;// 按钮间的左分割线
+	private View mDividerRight;// 按钮间的右分割线
+	private CharSequence mTitle;
+	private CharSequence mMessage;
+	private CharSequence mNegative;
+	private CharSequence mNeutral;
+	private CharSequence mPositive;
+	private DialogInterface.OnClickListener mNegativeListener;
+	private DialogInterface.OnClickListener mNeutralListener;
+	private DialogInterface.OnClickListener mPositiveListener;
+	private DialogInterface.OnClickListener mItemOnClickListener;
+	private int mNegativeColor;
+	private int mNeutralColor;
+	private int mPositiveColor;
+	private CharSequence[] mItems;
+	private Dialog dialog;
+	private int mDefautTheme = R.style.AlertViewStyle;
 
+	/**
+	 * @param context
+	 */
 	public UIAlertDialog(Context context) {
-		super(context);
-	}
+		mContext = context;
+		initLayout();
 
-	public void setLayout(double width, double height) {
-		getWindow().setLayout((int) width, (int) height);
-	}
-
-	public void setAnimStyle(int styleId) {
-		if (getWindow() != null) {
-			getWindow().setWindowAnimations(styleId);
-		}
 	}
 
 	/**
-	 * Helper class for creating a custom dialog
+	 * @param context
+	 * @param theme
 	 */
-	public static class Builder {
+	public UIAlertDialog(Context context, int theme) {
+		mContext = context;
+		mDefautTheme = theme;
+		initLayout();
+	}
 
-		private static final int DEFAULT_STYLE = R.style.AlertViewStyle;
+	private void initLayout() {
+		View view = LayoutInflater.from(mContext).inflate(
+				R.layout.layout_uidialog, null);
+		dialog = new Dialog(mContext, mDefautTheme);
+		dialog.setContentView(view);
+		mTitlePanel = (LinearLayout) view.findViewById(R.id.title_panel);
+		mTitleText = (TextView) view.findViewById(R.id.title);
+		mContentPanel = (LinearLayout) view.findViewById(R.id.content_panel);
+		mMessagePanel = (ScrollView) view.findViewById(R.id.message_panel);
+		mMessageText = (TextView) view.findViewById(R.id.message);
+		mSingleSelectList = (ListView) view.findViewById(R.id.single_select);
+		mButtonPanel = (LinearLayout) view.findViewById(R.id.button_panel);
+		mNegativeBtn = (Button) view.findViewById(R.id.btn_negative);
+		mNeutralBtn = (Button) view.findViewById(R.id.btn_neutral);
+		mPositiveBtn = (Button) view.findViewById(R.id.btn_positive);
+		mDividerLeft = (View) view.findViewById(R.id.view_divider_left);
+		mDividerRight = (View) view.findViewById(R.id.view_divider_right);
 
-		private LinearLayout mTitlePanel;
-		private TextView mTitleTextView;
-		private CharSequence mTitleText;
+	}
 
-		private LinearLayout mContentPanel;
-		private ScrollView mMessagePanel;
-		private TextView mMessageTextView;
-		private CharSequence mMessageText;
+	private void setLayout() {
+		setTitlePanel();
+		setMessagePanel();
+		setButtonPanel();
+		setListView();
+	}
 
-		private View mCustomView;
+	public void setTitle(int resId) {
+		mTitle = getText(mContext, resId);
+	}
 
-		private LinearLayout mButtonPanel;
-		private TextView mPositiveButton;
-		private TextView mNegativeButton;
-		private TextView mNeutralButton;
-		private View mDividerLeftView;
-		private View mDividerRightView;
-		private CharSequence mPositiveText;
-		private CharSequence mNegativeText;
-		private CharSequence mNeutralText;
-		private DialogInterface.OnClickListener mPositiveButtonListener;
-		private DialogInterface.OnClickListener mNegativeButtonListener;
-		private DialogInterface.OnClickListener mNeutralButtonListener;
+	public void setTitle(CharSequence title) {
+		mTitle = title;
+	}
 
-		private Context mContext;
-
-		private UIAlertDialog mDialog;
-
-		public Builder(Context context) {
-			this.mContext = context;
-		}
-
-		/**
-		 * Set the Dialog title.
-		 * 
-		 * @param titleId
-		 * @return
-		 */
-		public Builder setTitle(int titleId) {
-			this.mTitleText = getText(mContext, titleId);
-			return this;
-		}
-
-		/**
-		 * Set the Dialog title.
-		 * 
-		 * @param title
-		 * @return
-		 */
-		public Builder setTitle(CharSequence title) {
-			this.mTitleText = title;
-			return this;
-		}
-
-		/**
-		 * Set the Dialog message.
-		 * 
-		 * @param messageId
-		 * @return
-		 */
-		public Builder setMessage(int messageId) {
-			this.mMessageText = getText(mContext, messageId);
-			return this;
-		}
-
-		/**
-		 * Set the Dialog message.
-		 * 
-		 * @param message
-		 * @return
-		 */
-		public Builder setMessage(CharSequence message) {
-			this.mMessageText = message;
-			return this;
-		}
-
-		/**
-		 * Set a custom content view for the Dialog. If a message is set, the
-		 * custom view will remove message view and be added to the Dialog.
-		 * 
-		 * @param v
-		 * @return
-		 */
-		public Builder setContentView(View v) {
-			this.mCustomView = v;
-			return this;
-		}
-
-		/**
-		 * Set the text to display in positive button and a listener to be
-		 * invoked when it is pressed.
-		 * 
-		 * @param textId
-		 * @param listener
-		 * @return
-		 */
-		public Builder setPositiveButton(int textId,
-				DialogInterface.OnClickListener listener) {
-			this.mPositiveText = getText(mContext, textId);
-			this.mPositiveButtonListener = listener;
-			return this;
-		}
-
-		/**
-		 * Set the text to display in positive button and a listener to be
-		 * invoked when it is pressed.
-		 * 
-		 * @param text
-		 * @param listener
-		 * @return
-		 */
-		public Builder setPositiveButton(CharSequence text,
-				DialogInterface.OnClickListener listener) {
-			this.mPositiveText = text;
-			this.mPositiveButtonListener = listener;
-			return this;
-		}
-
-		/**
-		 * Set the text to display in negative button and a listener to be
-		 * invoked when it is pressed.
-		 * 
-		 * @param textId
-		 * @param listener
-		 * @return
-		 */
-		public Builder setNegativeButton(int textId,
-				DialogInterface.OnClickListener listener) {
-			this.mNegativeText = getText(mContext, textId);
-			this.mNegativeButtonListener = listener;
-			return this;
-		}
-
-		/**
-		 * Set the text to display in negative button and a listener to be
-		 * invoked when it is pressed.
-		 * 
-		 * @param text
-		 * @param listener
-		 * @return
-		 */
-		public Builder setNegativeButton(CharSequence text,
-				DialogInterface.OnClickListener listener) {
-			this.mNegativeText = text;
-			this.mNegativeButtonListener = listener;
-			return this;
-		}
-
-		/**
-		 * Set the text to display in neutral button and a listener to be
-		 * invoked when it is pressed.*
-		 * 
-		 * @param textId
-		 * @param listener
-		 * @return
-		 */
-		public Builder setNeutralButton(int textId,
-				DialogInterface.OnClickListener listener) {
-			this.mNeutralText = getText(mContext, textId);
-			this.mNeutralButtonListener = listener;
-			return this;
-		}
-
-		/**
-		 * Set the text to display in neutral button and a listener to be
-		 * invoked when it is pressed.
-		 * 
-		 * @param text
-		 * @param listener
-		 * @return
-		 */
-		public Builder setNeutralButton(CharSequence text,
-				DialogInterface.OnClickListener listener) {
-			this.mNeutralText = text;
-			this.mNeutralButtonListener = listener;
-			return this;
-		}
-
-		/**
-		 * Create the dialog.
-		 */
-		public UIAlertDialog create() {
-
-			mDialog = new UIAlertDialog(mContext, DEFAULT_STYLE);
-
-			LayoutInflater inflater = LayoutInflater.from(mContext);
-			View contentView = inflater.inflate(R.layout.layout_uidialog, null);
-
-			setupTitlePanel(contentView); // set title panel
-
-			setupContentPanel(contentView); // set content panel
-
-			setupButtonPanel(contentView); // set button panel
-
-			setupCustomView(contentView); // set custom view
-
-			mDialog.setContentView(contentView);
-
-			setupWindowParams();
-
-			return mDialog;
-		}
-
-		private void setupWindowParams() {
-			mDialog.setAnimStyle(R.style.AlertViewStyle);
-
-			WindowManager wManager = mDialog.getWindow().getWindowManager();
-			double width = wManager.getDefaultDisplay().getWidth() * 0.8;
-			mDialog.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT);
-		}
-
-		/**
-		 * Setup title panel layout.
-		 */
-		private void setupTitlePanel(View contentView) {
-			mTitlePanel = (LinearLayout) contentView
-					.findViewById(R.id.title_panel);
-			mTitleTextView = (TextView) contentView.findViewById(R.id.title);
-
-			if (!TextUtils.isEmpty(mTitleText)) {
-				mTitleTextView.setText(mTitleText);
-			} else {
-				mTitlePanel.setVisibility(View.GONE);
-			}
-		}
-
-		/**
-		 * Setup content panel layout.
-		 */
-		private void setupContentPanel(View contentView) {
-			mContentPanel = (LinearLayout) contentView
-					.findViewById(R.id.content_panel);
-			mMessageTextView = (TextView) contentView
-					.findViewById(R.id.message);
-			mMessagePanel = (ScrollView) contentView
-					.findViewById(R.id.message_panel);
-
-			if (!TextUtils.isEmpty(mMessageText)) {
-				mMessageTextView.setText(mMessageText);
-			} else {
-				mMessagePanel.setVisibility(View.GONE);
-			}
-		}
-
-		/**
-		 * Setup button panel layout.
-		 */
-
-		@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-		private void setupButtonPanel(View contentView) {
-			mPositiveButton = (TextView) contentView
-					.findViewById(R.id.btn_positive);
-			mNegativeButton = (TextView) contentView
-					.findViewById(R.id.btn_negative);
-			mNeutralButton = (TextView) contentView
-					.findViewById(R.id.btn_neutral);
-			mDividerLeftView = contentView.findViewById(R.id.view_divider_left);
-			mDividerRightView = contentView
-					.findViewById(R.id.view_divider_right);
-			mButtonPanel = (LinearLayout) contentView
-					.findViewById(R.id.button_panel);
-
-			boolean showPositive = false;
-			boolean showNegative = false;
-			boolean showNeutral = false;
-
-			// set the confirm button visible
-			if (!TextUtils.isEmpty(mPositiveText)) {
-				showPositive = true;
-				mPositiveButton.setText(mPositiveText);
-				mPositiveButton.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						if (mPositiveButtonListener != null) {
-							mPositiveButtonListener.onClick(mDialog,
-									DialogInterface.BUTTON_POSITIVE);
-						}
-						mDialog.dismiss();
-					}
-				});
-			} else {
-				mPositiveButton.setVisibility(View.GONE);
-			}
-
-			// set the cancel button visible
-			if (!TextUtils.isEmpty(mNegativeText)) {
-				showNegative = true;
-				mNegativeButton.setText(mNegativeText);
-				mNegativeButton.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						if (mNegativeButtonListener != null) {
-							mNegativeButtonListener.onClick(mDialog,
-									DialogInterface.BUTTON_NEGATIVE);
-						}
-						mDialog.dismiss();
-					}
-				});
-			} else {
-				mNegativeButton.setVisibility(View.GONE);
-			}
-
-			// set the neutral button visible
-			if (!TextUtils.isEmpty(mNeutralText)) {
-				showNeutral = true;
-				mNeutralButton.setText(mNeutralText);
-				mNeutralButton.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						if (mNeutralButtonListener != null) {
-							mNeutralButtonListener.onClick(mDialog,
-									DialogInterface.BUTTON_NEUTRAL);
-						}
-						mDialog.dismiss();
-					}
-				});
-			} else {
-				mNeutralButton.setVisibility(View.GONE);
-			}
-
-			// set the divider visible
-			if (!showNegative) {
-				mDividerLeftView.setVisibility(View.GONE);
-				if (!showNeutral) {
-					mDividerRightView.setVisibility(View.GONE);
-					if (showPositive) {
-						mPositiveButton.setBackground(getDrawable(mContext,
-								R.drawable.selector_bottom));
-					}
-				} else {
-					if (showPositive) {
-						mNeutralButton.setBackground(getDrawable(mContext,
-								R.drawable.selector_bottom_left));
-					} else {
-						mNeutralButton.setBackground(getDrawable(mContext,
-								R.drawable.selector_bottom));
-					}
-				}
-			} else {
-				if (!showNeutral) {
-					mDividerLeftView.setVisibility(View.GONE);
-					if (showPositive) {
-						mNegativeButton.setBackground(getDrawable(mContext,
-								R.drawable.selector_bottom_left));
-					} else {
-						mDividerRightView.setVisibility(View.GONE);
-						mNegativeButton.setBackground(getDrawable(mContext,
-								R.drawable.selector_bottom));
-					}
-				} else {
-					if (!showPositive) {
-						mDividerRightView.setVisibility(View.GONE);
-						mNeutralButton.setBackground(getDrawable(mContext,
-								R.drawable.selector_bottom_right));
-					}
-				}
-			}
-
-			// set the button panel layout visible
-			if (!showPositive && !showNegative && !showNeutral) {
-				mButtonPanel.setVisibility(View.GONE);
-			}
-		}
-
-		/**
-		 * Setup custom view.
-		 */
-		private void setupCustomView(View contentView) {
-			if (mCustomView != null) {
-				mContentPanel.setVisibility(View.VISIBLE);
-				mContentPanel.removeAllViews();
-				mContentPanel.addView(contentView, new LayoutParams(
-						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			}
-		}
-
-		public UIAlertDialog show() {
-			mDialog = create();
-			mDialog.show();
-			return mDialog;
-		}
-
-		private CharSequence getText(Context context, int resId) {
-			if (context == null) {
-				return null;
-			}
-			try {
-				return context.getText(resId);
-			} catch (Exception e) {
-				android.util.Log.e("test",
-						"getText exception: " + e.getMessage());
-			}
-			return null;
-		}
-
-		public Drawable getDrawable(Context context, int iconId) {
-			if (context == null) {
-				return null;
-			}
-			try {
-				return context.getResources().getDrawable(iconId);
-			} catch (Exception e) {
-				android.util.Log.e("test",
-						"getDrawable exception: " + e.getMessage());
-			}
-			return null;
+	private void setTitlePanel() {
+		if (TextUtils.isEmpty(mTitle)) {
+			mTitlePanel.setVisibility(View.GONE);
+		} else {
+			mTitleText.setText(mTitle);
 		}
 	}
 
+	public void setMessage(int resId) {
+		mMessage = getText(mContext, resId);
+	}
+
+	public void setMessage(CharSequence message) {
+		mMessage = message;
+	}
+
+	private void setMessagePanel() {
+		if (TextUtils.isEmpty(mMessage)) {
+			mMessagePanel.setVisibility(View.GONE);
+		} else {
+			mMessageText.setText(mMessage);
+			mSingleSelectList.setVisibility(View.GONE);
+		}
+	}
+
+	public void setNegativeButton(int resId,
+			DialogInterface.OnClickListener listener, int... color) {
+		mNegative = getText(mContext, resId);
+		mNegativeListener = listener;
+		mNegativeColor = color.length > 0 ? color[0] : -1;// color为数组,若color长度>0,取第一个值
+	}
+
+	public void setNegativeButton(CharSequence negative,
+			DialogInterface.OnClickListener listener, int... color) {
+		mNegative = negative;
+		mNegativeListener = listener;
+		mNegativeColor = color.length > 0 ? color[0] : -1;
+	}
+
+	public void setNeutralButton(int resId,
+			DialogInterface.OnClickListener listener, int... color) {
+		mNeutral = getText(mContext, resId);
+		mNeutralListener = listener;
+		mNeutralColor = color.length > 0 ? color[0] : -1;
+	}
+
+	public void setNeutralButton(CharSequence neutral,
+			DialogInterface.OnClickListener listener, int... color) {
+		mNeutral = neutral;
+		mNeutralListener = listener;
+		mNeutralColor = color.length > 0 ? color[0] : -1;
+	}
+
+	public void setPositiveButton(int resId,
+			DialogInterface.OnClickListener listener, int... color) {
+		mPositive = getText(mContext, resId);
+		mPositiveListener = listener;
+		mPositiveColor = color.length > 0 ? color[0] : -1;
+	}
+
+	public void setPositiveButton(CharSequence positive,
+			DialogInterface.OnClickListener listener, int... color) {
+		mPositive = positive;
+		mPositiveListener = listener;
+		mPositiveColor = color.length > 0 ? color[0] : -1;
+	}
+
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	private void setButtonPanel() {
+		boolean bNegative = true;
+		boolean bNeutral = true;
+		boolean bPositive = true;
+		if (TextUtils.isEmpty(mNegative)) {
+			mNegativeBtn.setVisibility(View.GONE);
+			bNegative = false;
+		} else {
+			mNegativeBtn.setText(mNegative);
+			if (-1 != mNegativeColor) {
+				mNegativeBtn.setTextColor(mNegativeColor);
+			}
+			if (null != mNegativeListener) {
+				mNegativeBtn.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						mNegativeListener.onClick(dialog,
+								DialogInterface.BUTTON_NEGATIVE);
+						dialog.dismiss();
+
+					}
+				});
+			}
+		}
+		if (TextUtils.isEmpty(mNeutral)) {
+			mNeutralBtn.setVisibility(View.GONE);
+			bNeutral = false;
+		} else {
+			mNeutralBtn.setText(mNeutral);
+			if (-1 != mNeutralColor) {
+				mNeutralBtn.setTextColor(mNeutralColor);
+			}
+			if (null != mNeutralListener) {
+				mNeutralBtn.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						mNeutralListener.onClick(dialog,
+								DialogInterface.BUTTON_NEUTRAL);
+						dialog.dismiss();
+
+					}
+				});
+			}
+		}
+		if (TextUtils.isEmpty(mPositive)) {
+			mPositiveBtn.setVisibility(View.GONE);
+			bPositive = false;
+		} else {
+			mPositiveBtn.setText(mPositive);
+			if (-1 != mPositiveColor) {
+				mPositiveBtn.setTextColor(mPositiveColor);
+			}
+			if (null != mPositiveListener) {
+				mPositiveBtn.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						mPositiveListener.onClick(dialog,
+								DialogInterface.BUTTON_POSITIVE);
+						dialog.dismiss();
+
+					}
+				});
+			}
+		}
+
+		if (!bNegative) {
+			mDividerLeft.setVisibility(View.GONE);
+			if (!bNeutral) {
+				mDividerRight.setVisibility(View.GONE);
+				if (bPositive) {
+					mPositiveBtn.setBackground(getDrawable(mContext,
+							R.drawable.selector_bottom));
+				}
+			} else {
+				if (bPositive) {
+					mNeutralBtn.setBackground(getDrawable(mContext,
+							R.drawable.selector_bottom_left));
+				} else {
+					mNeutralBtn.setBackground(getDrawable(mContext,
+							R.drawable.selector_bottom));
+				}
+			}
+		} else {
+			if (!bNeutral) {
+				mDividerLeft.setVisibility(View.GONE);
+				if (bPositive) {
+					mNegativeBtn.setBackground(getDrawable(mContext,
+							R.drawable.selector_bottom_left));
+				} else {
+					mDividerRight.setVisibility(View.GONE);
+					mNegativeBtn.setBackground(getDrawable(mContext,
+							R.drawable.selector_bottom));
+				}
+			} else {
+				if (!bPositive) {
+					mDividerRight.setVisibility(View.GONE);
+					mNeutralBtn.setBackground(getDrawable(mContext,
+							R.drawable.selector_bottom_right));
+				}
+			}
+		}
+
+		// set the button panel layout visible
+		if (!bPositive && !bNegative && !bNeutral) {
+			mButtonPanel.setVisibility(View.GONE);
+		}
+	}
+
+	public void setItems(int itemsId, final OnClickListener listener) {
+		mItems = getTextArray(mContext, itemsId);
+		mItemOnClickListener = listener;
+	}
+
+	public void setItems(CharSequence[] items, final OnClickListener listener) {
+		mItems = items;
+		mItemOnClickListener = listener;
+	}
+
+	private ItemAdapter mAdapter;
+
+	private void setListView() {
+		IOnItemClickListener onItemClickListener = null;
+		if (null != mItemOnClickListener) {
+			onItemClickListener = new IOnItemClickListener() {
+
+				@Override
+				public void onItemClick(View view, int position) {
+					mItemOnClickListener.onClick(dialog, position);
+					dialog.dismiss();
+				}
+			};
+		}
+		if (null != mItems && mItems.length > 0) {
+			mAdapter = new ItemAdapter(mContext, mItems, onItemClickListener);
+		}
+		mSingleSelectList.setAdapter(mAdapter);
+		if (null == mAdapter) {
+			mSingleSelectList.setVisibility(View.GONE);
+		}
+	}
+
+	public void show() {
+		setLayout();
+		dialog.show();
+	}
+
+	private CharSequence getText(Context context, int resId) {
+		if (null == context) {
+			return null;
+		}
+		return context.getText(resId);
+	}
+
+	private Drawable getDrawable(Context context, int icon) {
+		if (null == context) {
+			return null;
+		}
+		return context.getResources().getDrawable(icon);
+	}
+
+	private CharSequence[] getTextArray(Context context, int arrayId) {
+		if (null == context) {
+			return null;
+		}
+		return context.getResources().getTextArray(arrayId);
+	}
+
+	public void setCanceledOnTouchOutside(boolean b) {
+		dialog.setCanceledOnTouchOutside(b);
+	}
+
+	public interface IOnItemClickListener {
+		void onItemClick(View view, int position);
+	}
+
+	private static class ItemAdapter extends BaseAdapter {
+
+		private Context mContext;
+		private CharSequence[] mItems;
+		private int mCheckedItem = -1;
+		private IOnItemClickListener mOnItemClickListener;
+
+		public ItemAdapter(Context context, CharSequence[] items,
+				IOnItemClickListener listener) {
+			mContext = context;
+			mItems = items;
+			mOnItemClickListener = listener;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.Adapter#getCount()
+		 */
+		@Override
+		public int getCount() {
+			if (null == mItems) {
+				return 0;
+			}
+			return mItems.length;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.Adapter#getItem(int)
+		 */
+		@Override
+		public Object getItem(int position) {
+			if (null == mItems) {
+				return null;
+			}
+			return mItems[position];
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.Adapter#getItemId(int)
+		 */
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.Adapter#getView(int, android.view.View,
+		 * android.view.ViewGroup)
+		 */
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				convertView = LayoutInflater.from(mContext).inflate(
+						R.layout.list_single_select_item, null);
+			}
+			TextView textView = (TextView) convertView
+					.findViewById(R.id.single_select_item);
+
+			textView.setText(mItems[position].toString());
+			textView.setTag(position);
+			textView.setOnClickListener(listener);
+			return convertView;
+		}
+
+		private View.OnClickListener listener = new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int position = (Integer) v.getTag();
+				mCheckedItem = position;
+				notifyDataSetChanged();
+				if (null != mOnItemClickListener) {
+					mOnItemClickListener.onItemClick(v, position);
+				}
+			}
+		};
+
+	}
 }
